@@ -114,29 +114,30 @@ Le azioni di set e cancel sono molto semplici in quanto vanno ad agire sulla pro
 L'azione di conferma modifica invece prende in carico i dati raccolti dal form di modifica e li va ad applicare al nodo con id precedentemente tracciato.
 
 ```typescript
-		case "edit-set-item": {
-			const { nodeId } = action.payload;
-			return { ...state, idInEdit: nodeId }
-		}
+case "edit-set-item": {
+	const { nodeId } = action.payload;
+	return { ...state, idInEdit: nodeId }
+}
 
-		case "edit-apply": {
-			const { node, parent } = action.payload;
-			const { items } = parent;
-			if (!items) return state;
-			const newItems = items.map(item => {
-				if (item.id === node.id) {
-					return node;
-				}
-				return item;
-			});
-			const root = mutateTree(state.root, parent.id, newItems);
-			return { ...state, root, idInEdit: undefined }
-		}
+case "edit-apply": {
+	const { node, parent } = action.payload;
+	const { items } = parent;
+		if (!items) return state;
+		const newItems = items.map(item => {
+			if (item.id === node.id) {
+				return node;
+			}
+			return item;
+		});
+		const root = mutateTree(state.root, parent.id, newItems);
+		return { ...state, root, idInEdit: undefined }
+	}
 
-		case "edit-cancel": {
-			return { ...state, idInEdit: undefined }
-		}
+	case "edit-cancel": {
+		return { ...state, idInEdit: undefined }
+	}
 ```
+
 ## Componenti di renderizzazione nodi albero
 Il componente di renderizzazione del signolo nodo sarà rappresentato da due diversi componenti a seconda se questo è in modalità modifica o meno, ma in entrambi i casi avranno come prop
 
@@ -149,6 +150,7 @@ type TreeNodeComponentProps = {
 	idInEdit?: string;
 }
 ```
+
 Da notare che il parent potrebbe essere non definito per il caso del nodo root, e il cosiddetto _"prop-drilling"_ di dispatch per lanciare le azioni a qualsiasi livello di annidamento e id nodo per la modifica dello stato del nodo stesso.
 
 
