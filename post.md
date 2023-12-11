@@ -14,6 +14,7 @@ export type TreeNode = {
 }
 
 ```
+
 In questo caso per semplificare ho già previsto la prop `name` che sarà l'unico dato che andremo ad editare ma in generale TreeItem è da usare come estensione per le entità che saranno sicuramente più complesse.
 
 
@@ -30,14 +31,17 @@ type TreeAction =
 	| { type: "edit-apply", payload: { parent: TreeNode, node: TreeNode, } }
 	| { type: "edit-cancel" }
 ```
+
 L'azione di editinig si compone di almeno 2 parti: l'attivazione alla modifica del nodo e le conseguenti azioni di conferma o annullamento.
 Per quanto riguarda il modello dello stato come punto di partenza basterà 
+
 ```typescript
 type TreeState = {
 	root: TreeNode,
 	idInEdit?: string,
 }
 ```
+
 Lo stato quindi rappresenterà l'intero albero che verrà mutato in conseguenza delle azioni di aggiunta, rimozione o modifca dei nodi e l'eventuale id del nodo in modifica.
 
 ## Funzione di mutazione albero
