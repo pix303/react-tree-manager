@@ -15,12 +15,12 @@ export type TreeNode = {
 
 ```
 
-In questo caso per semplificare ho già previsto la prop `name` che sarà l'unico dato che andremo ad editare ma in generale TreeItem è da usare come estensione per le entità che saranno sicuramente più complesse.
+In questo caso per semplificare ho già previsto la prop 'name' che sarà l'unico dato che andremo ad editare ma in generale TreeItem è da usare come estensione per le entità che saranno sicuramente più complesse.
 
 
 ## State management con useReducer
 
-L`hook useReducer può essere un elemento base per poter gestire gli eventi/azioni e i cambi di stato conseguenti ma si potrebbero valutare state management più evoluti.
+L'hook useReducer può essere un elemento base per poter gestire gli eventi/azioni e i cambi di stato conseguenti ma si potrebbero valutare state management più evoluti.
 Vediamo la definizione delle azioni base 
 
 ```typescript
