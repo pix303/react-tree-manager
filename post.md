@@ -32,7 +32,7 @@ type TreeAction =
 	| { type: "edit-cancel" }
 ```
 
-L'azione di editinig si compone di almeno 2 parti: l'attivazione alla modifica del nodo e le conseguenti azioni di conferma o annullamento.
+L'azione di editing si compone di almeno 2 parti: l'attivazione alla modifica del nodo e le conseguenti azioni di conferma o annullamento.
 Per quanto riguarda il modello dello stato come punto di partenza basterà 
 
 ```typescript
