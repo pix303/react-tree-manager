@@ -1,5 +1,5 @@
-Recentemente mi sono trovato a dover editare una struttura che presentava dai 3 ai 4 livelli di annidamento: entità che contenevano liste di altre entità in ricorsione. La migliore soluzione che ho trovato finora è quella di utilizzare:
-- interfaccia che rappresenta il nodo dell'albero
+Recentemente mi sono trovato a dover editare una struttura che presentava dai 3 ai 4 livelli di annidamento: entità che contenevano liste di altre entità anche se non esplicitamente in ricorsione. La migliore soluzione che ho trovato finora è quella di utilizzare:
+- un'interfaccia che rappresenta il nodo dell'albero
 - useReducer come state management
 - una funzione ricorsiva per mutare l'intero albero
 
@@ -15,13 +15,13 @@ export type TreeNode = {
 
 ```
 
-In questo caso per semplificare ho già previsto la prop 'name' che sarà l'unico dato che andremo ad editare ma in generale TreeItem è da usare come estensione per le entità che saranno sicuramente più complesse.
+In questo caso per semplificare ho già previsto la prop _name_ che sarà l'unico dato che andremo ad editare ma in generale TreeItem è da usare come **estensione** per le entità che saranno sicuramente più complesse.
 
 
 ## State management con useReducer
 
-L'hook useReducer può essere un elemento base per poter gestire gli eventi/azioni e i cambi di stato conseguenti ma si potrebbero valutare state management più evoluti.
-Vediamo la definizione delle azioni base 
+L'hook useReducer può essere il punto di partenza per poter gestire le azioni/eventi e i cambi di stato conseguenti, ma si potrebbero valutare state management più evoluti.
+Vediamo la definizione delle azioni base:
 
 ```typescript
 type TreeAction =
@@ -44,7 +44,7 @@ type TreeState = {
 
 Lo stato quindi rappresenterà l'intero albero che verrà mutato in conseguenza delle azioni di aggiunta, rimozione o modifca dei nodi e l'eventuale id del nodo in modifica.
 
-## Funzione di mutazione albero
+## Funzione di mutazione dell'albero
 La funzione che si occuperà di restiture il nuovo albero utilizzerà la ricorsione per la ricerca e sostituzione dei figli del nodo che stiamo modificando. 
 Anche nel caso di edit di un singolo nodo andremo comunque a modificare i figli del nodo padre di quest'ultimo.
 
@@ -66,10 +66,11 @@ function mutateTree(root: TreeNode, nodeIdToUpdate: string, newItems: TreeNode[]
 ```
 
 
-## L'azione di aggiunta nodo
+## Aggiunta di un nuovo nodo
 Questa azione si prefigge di gestire due casi
 - aggiunta di un nodo figlio a partire dal nodo padre
 - aggiunta di un nodo fratello a partire dal nodo stesso
+
 L'indice, in questo esempio, viene passato solo in caso di aggiunta di un nodo fratello
 
 ```typescript
@@ -95,7 +96,7 @@ case "add-item": {
 }
 ```
 
-## L'azione di rimozione nodo
+## Rimozione di un nodo
 Questa azione viene sempre invocata dal nodo stesso che vogliamo rimuovere
 
 ```typescript
@@ -151,7 +152,7 @@ type TreeNodeComponentProps = {
 }
 ```
 
-Da notare che il parent potrebbe essere non definito per il caso del nodo root, e il cosiddetto _"prop-drilling"_ di dispatch per lanciare le azioni a qualsiasi livello di annidamento e id nodo per la modifica dello stato del nodo stesso.
+Da notare che il parent potrebbe essere non definito per il caso del nodo root, e il _prop-drilling_ di dispatch, per lanciare le azioni a qualsiasi livello di annidamento, e id nodo per la modifica dello stato del nodo stesso.
 
 
 ```typescript
@@ -169,6 +170,5 @@ const TreeNodeComponent = (props: TreeNodeComponentProps) => {
 
 ```
 
-Per il codice completo potete riferivi a questo repository. 
+Per la soluzione completa trovate il codice in questo repository. 
 E voi quali soluzioni avete addottato per gestire un caso simile?
-
